@@ -14,6 +14,9 @@ import {ProductCreateComponent} from './admin/product/product-create/product-cre
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { LoginComponent } from './shop/login/login.component';
 import {SharedModule} from "./shared/shared.module";
+import {environment} from "../environments/environment";
+
+import {AngularFireModule} from "@angular/fire/compat";
 
 @NgModule({
   declarations: [
@@ -32,7 +35,8 @@ import {SharedModule} from "./shared/shared.module";
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
   ],
   providers: [],
   bootstrap: [AppComponent]

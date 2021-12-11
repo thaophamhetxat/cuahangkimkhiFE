@@ -3,7 +3,17 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebaseConfig : {
+    apiKey: "AIzaSyBUO7IcvxfFPEuT_QltLS5JqkluJxpxZW8",
+    authDomain: "kimkhiupload.firebaseapp.com",
+    databaseURL: "https://kimkhiupload-default-rtdb.firebaseio.com",
+    projectId: "kimkhiupload",
+    storageBucket: "kimkhiupload.appspot.com",
+    messagingSenderId: "934515044198",
+    appId: "1:934515044198:web:0781f4e29c62e3694522a7",
+    measurementId: "${config.measurementId}"
+  }
 };
 
 /*

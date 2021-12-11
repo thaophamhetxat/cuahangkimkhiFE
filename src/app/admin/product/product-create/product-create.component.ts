@@ -1,10 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Product} from "../../../model/product";
 import {Category} from "../../../model/category";
+import {AngularFireStorage} from "@angular/fire/compat/storage";
+import {finalize} from "rxjs/operators";
 
 
 @Component({
@@ -15,6 +17,9 @@ import {Category} from "../../../model/category";
 export class ProductCreateComponent implements OnInit {
   products: Product[] = [];
   categories: Category[] = [];
+
+  arrfiles: any = [];
+  arrayPicture : string[] = [];
 
   productForm: FormGroup = new FormGroup({
     pid: new FormControl(),
@@ -30,7 +35,8 @@ export class ProductCreateComponent implements OnInit {
   })
 
   constructor(private http: HttpClient,
-              private router: Router) {
+              private router: Router,
+              private storage: AngularFireStorage) {
   }
 
 
@@ -50,5 +56,31 @@ export class ProductCreateComponent implements OnInit {
       alert("create thành công - " + data.nameProduct)
       this.router.navigate(['/product/home']);
     })
+  }
+
+  @ViewChild('uploadFile1', {static: true}) public avatarDom1: ElementRef | undefined;
+  title = 'demoUploadFile';
+
+  submitFileBase() {
+    for (let file of this.arrfiles) {
+      if (file != null) {
+        const filePath = file.name;
+        const fileRef = this.storage.ref(filePath);
+        this.storage.upload(filePath, file).snapshotChanges().pipe(
+          finalize(() => (fileRef.getDownloadURL().subscribe(
+            url => {
+              this.arrayPicture.push(url);
+              console.log(url);
+            })))
+        ).subscribe();
+      }
+    }
+  }
+
+  uploadFileImg() {
+    for (const argument of this.avatarDom1?.nativeElement.files) {
+      this.arrfiles.push(argument)
+    }
+    this.submitFileBase();
   }
 }
