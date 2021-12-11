@@ -1,0 +1,72 @@
+<div class="container pt-4" style="margin-top: 58px">
+  <section class="mb-4">
+    <div class="card">
+      <div class="card-header py-3">
+        <!--        tìm kiếm,sằng lọc ở đây-->
+        <h5 class="mb-0 text-center">
+          <strong>
+            <div class="w3-row w3-padding w3-theme-d2 w3-xlarge">
+              <div class="w3-right">
+                <input placeholder="Enter here" [(ngModel)]="searchText" type="text" class="w3-amber w3-border-0 w3-padding" style="width:100%">
+              </div>
+            </div>
+          </strong>
+        </h5>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="row">
+      <div class="col-xl-4 col-sm-6 col-12 mb-4" *ngFor="let product of  products|menu:searchText"
+           style="margin-top: 10px">
+        <!--        1 ô thông tin hiển thị sản phẩm-->
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex justify-content-between px-md-1">
+              <div class="align-self-center">
+                <!--ảnh-->
+                <img src="{{product.image}}" alt="{{product.nameProduct}}"><br>
+                <button (click)="addCart(product.id)">add cart</button>
+              </div>
+              <div class="text-end">
+                <h3>{{product.price}} VND</h3>
+                <p class="mb-0">{{product.nameProduct}}</p>
+                <p class="mb-0">{{product.category}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</div>
+
+<!--    phân trang-->
+<div class="mt-3">
+  <nav aria-label="Page navigation example">
+    <ul class="pagination d-flex justify-content-md-end justify-content-center">
+<!--      <li class="page-item"><a class="page-link" (click)="firtPage()">Đầu</a></li>-->
+      <li class="page-item"><button class="page-link" (click)="prviousPage()">Trang trước</button></li>
+      <!--                    <li class="page-item active"><a class="page-link" href="#">1</a></li>-->
+      <li class="page-item col-md-1 col-2  px-0">
+        <!--                        <input class="form-control shadow-none rounded-0" type="text" placeholder="2/5">-->
+        <div class="input-group">
+          <input type="number" min="1" [max]="totalPagination" class="form-control text-right rounded-0"
+                 placeholder="2" aria-label="Username"
+                 aria-describedby="basic-addon1" [value]="indexPagination"
+                 (change)="indexPaginationChage($event.target)">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">{{totalPagination}}</span>
+          </div>
+        </div>
+      </li>
+      <li class="page-item">
+<!--        <button class="btn btn-primary rounded-0" (click)="findPaginnation()">Đi</button>-->
+      </li>
+      <li class="page-item"><button class="page-link" (click)="nextPage()">Trang kế</button></li>
+<!--      <li class="page-item"><a class="page-link" (click)="lastPage()">Cuối</a></li>-->
+    </ul>
+  </nav>
+</div>
+
