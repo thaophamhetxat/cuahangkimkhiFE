@@ -13,10 +13,6 @@
         <div class="form-group mt-3">
 <!--          <input type="file" class="form-control" formControlName="image" placeholder="image" required>-->
           <input type="file" #uploadFile1  class="form-control" multiple="multiple">
-          <button (click)="uploadFileImg()">Upload</button>
-          <div *ngFor="let img of arrayPicture">
-            <img [src]="img" height="300" width="300">
-          </div>
         </div>
         <div class="form-group mt-3">
           <input type="text" class="form-control" formControlName="quantity" placeholder="quantity" required>

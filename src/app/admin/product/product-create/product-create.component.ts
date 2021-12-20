@@ -19,7 +19,7 @@ export class ProductCreateComponent implements OnInit {
   categories: Category[] = [];
 
   arrfiles: any = [];
-  arrayPicture : string[] = [];
+  arrayPicture: string[] = [];
 
   productForm: FormGroup = new FormGroup({
     pid: new FormControl(),
@@ -40,7 +40,6 @@ export class ProductCreateComponent implements OnInit {
   }
 
 
-
   ngOnInit(): void {
     this.getAllCategory();
   }
@@ -51,12 +50,6 @@ export class ProductCreateComponent implements OnInit {
     })
   }
 
-  submit() {
-    this.http.post<Product>('http://localhost:8080/kimkhi/sanphams/', this.productForm.value).subscribe((data) => {
-      alert("create thành công - " + data.nameProduct)
-      this.router.navigate(['/product/home']);
-    })
-  }
 
   @ViewChild('uploadFile1', {static: true}) public avatarDom1: ElementRef | undefined;
   title = 'demoUploadFile';
@@ -77,10 +70,16 @@ export class ProductCreateComponent implements OnInit {
     }
   }
 
-  uploadFileImg() {
+
+  submit() {
     for (const argument of this.avatarDom1?.nativeElement.files) {
       this.arrfiles.push(argument)
     }
-    this.submitFileBase();
+    this.http.post<Product>('http://localhost:8080/kimkhi/sanphams/', this.productForm.value).subscribe((data) => {
+      alert("create thành công - " + data.nameProduct)
+      this.submitFileBase();
+      this.router.navigate(['/admin/product/home']);
+    })
   }
+
 }
