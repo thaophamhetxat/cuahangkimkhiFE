@@ -6,6 +6,7 @@ import  {DashboardComponent} from './dashboard/dashboard.component';
 import  {MenuComponent} from './menu/menu.component';
 import  {BuyComponent} from './buy/buy.component';
 import  {LoginComponent} from './login/login.component';
+import  {SigupComponent} from './sigup/sigup.component';
 const routes: Routes = [
   {
     path : 'home',
@@ -26,6 +27,10 @@ const routes: Routes = [
   {
     path : 'login',
     component : LoginComponent
+  },
+  {
+    path : 'signup',
+    component : SigupComponent
   },
 ];
 

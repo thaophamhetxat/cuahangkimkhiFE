@@ -8,6 +8,7 @@ import { MenuComponent } from './menu/menu.component';
 import { BuyComponent } from './buy/buy.component';
 import { MenuPipe } from './menu/menu.pipe';
 import {FormsModule} from "@angular/forms";
+import { SigupComponent } from './sigup/sigup.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import {FormsModule} from "@angular/forms";
     HomeComponent,
     MenuComponent,
     BuyComponent,
-    MenuPipe
+    MenuPipe,
+    SigupComponent
   ],
   imports: [
     CommonModule,

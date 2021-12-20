@@ -38,7 +38,13 @@
                         <tr>
                           <td>{{i + 1}}</td>
                           <td>{{product.nameProduct}}</td>
-                          <td><img src="{{product.image}}" width="75" height="100" alt="{{product.image}}"></td>
+<!--                          <td><img src="{{product.image}}" width="75" height="100" alt="{{product.image}}"></td>-->
+                          <td>
+                            <div *ngFor="let img of arrayPicture">
+                              <img [src]="img" height="300" width="300" alt="1">
+                            </div>
+                          </td>
+
                           <td>{{product.description}}</td>
                           <td>{{product.quantity}}</td>
                           <td>{{product.importPrice}}</td>

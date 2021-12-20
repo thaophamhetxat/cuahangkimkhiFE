@@ -46,37 +46,37 @@ this.getCategory();
     })
   }
 
-  getProductPage() {
-    this.http.get<Product[]>('http://localhost:8080/kimkhi/sanphams/page').subscribe((data) => {
-      this.listProductPage = data;
+  // getProductPage() {
+  //   this.http.get<Product[]>('http://localhost:8080/kimkhi/sanphams/page').subscribe((data) => {
+  //     this.listProductPage = data;
+  //
+  //     if ((this.listProductPage.length % 3) != 0) {
+  //       this.totalPagination = (Math.round(this.listProductPage.length / 3)) + 1;
+  //     }
+  //   })
+  // }
 
-      if ((this.listProductPage.length % 3) != 0) {
-        this.totalPagination = (Math.round(this.listProductPage.length / 3)) + 1;
-      }
-    })
-  }
+  // nextPage() {
+  //   this.indexPagination = this.indexPagination + 1;
+  //   if (this.indexPagination > this.totalPagination) {
+  //     this.indexPagination = this.indexPagination - 1;
+  //   }
+  //   this.productService.getAllProductPage((this.indexPagination * 3)+3).subscribe((data: Product[]) => {
+  //     this.products = data;
+  //   })
+  // }
 
-  nextPage() {
-    this.indexPagination = this.indexPagination + 1;
-    if (this.indexPagination > this.totalPagination) {
-      this.indexPagination = this.indexPagination - 1;
-    }
-    this.productService.getAllProductPage((this.indexPagination * 3)+3).subscribe((data: Product[]) => {
-      this.products = data;
-    })
-  }
-
-  prviousPage() {
-    this.indexPagination = this.indexPagination - 1;
-    if (this.indexPagination == 0) {
-      this.indexPagination = 1;
-      this.ngOnInit();
-    } else {
-      this.productService.getAllProductPage((this.indexPagination * 3) - 3).subscribe((data: Product[]) => {
-        this.products = data;
-      })
-    }
-  }
+  // prviousPage() {
+  //   this.indexPagination = this.indexPagination - 1;
+  //   if (this.indexPagination == 0) {
+  //     this.indexPagination = 1;
+  //     this.ngOnInit();
+  //   } else {
+  //     this.productService.getAllProductPage((this.indexPagination * 3) - 3).subscribe((data: Product[]) => {
+  //       this.products = data;
+  //     })
+  //   }
+  // }
 
 
   addCart(id: number | undefined) {
@@ -87,9 +87,9 @@ this.getCategory();
     })
   }
 
-  indexPaginationChage(value: any) {
-    this.indexPagination = value;
-  }
+  // indexPaginationChage(value: any) {
+  //   this.indexPagination = value;
+  // }
 
   getCategory() {
     this.http.get<Category[]>('http://localhost:8080/kimkhi/categories/').subscribe((data) => {

@@ -17,7 +17,9 @@ const routes: Routes = [
   {
     path: 'admin/supplier',
     loadChildren: () => import('./admin/supplier/supplier.module').then(module => module.SupplierModule)
-  }
+  },
+  //seting mặc định để đi vào login
+  { path: '', redirectTo: '/shop/login', pathMatch: 'full' },
 ];
 
 @NgModule({
