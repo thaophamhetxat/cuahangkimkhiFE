@@ -8,56 +8,77 @@
         <div class="col-md-8">
           <div class="mb-4">
             <h3>Sign Up</h3>
-            <p class="mb-4">Lorem ipsum dolor sit amet elit. Sapiente sit aut eos consectetur adipisicing.</p>
+            <p class="mb-4">{{status}}</p>
           </div>
-
 
           <form action="#" method="post" class="form-login" #f="ngForm" (ngSubmit)="f.form.valid && ngSubmit()"
                 novalidate>
-
             <div class="form-group first">
               <label>Name</label>
-              <input name="username" [(ngModel)]="form.username" #username class="form-control" required minlength="3">
-              <!--              <mat-error *ngIf="username.hasError('required')">the name is required</mat-error>-->
+              <input name="name"
+                     [(ngModel)]="form.name"
+                     #name="ngModel"
+                     class="form-control"
+                     required minlength="2">
+              <p *ngIf="name.touched && name.errors?.required">Tên quá ngắn </p>
             </div>
 
             <div class="form-group first">
               <label>Username</label>
-              <input name="username" [(ngModel)]="form.username" #username class="form-control" required minlength="3">
-              <!--              <mat-error *ngIf="username.hasError('required')">the name is required</mat-error>-->
+              <input name="username"
+                     [(ngModel)]="form.username"
+                     #username="ngModel"
+                     class="form-control"
+                     required minlength="6">
+              <p *ngIf="username.touched && username.errors?.required">Tên đăng nhập quá ngắn</p>
             </div>
-
             <div class="form-group first">
               <label>Email</label>
-              <input name="username" [(ngModel)]="form.username" #username class="form-control" required minlength="3">
-              <!--              <mat-error *ngIf="username.hasError('required')">the name is required</mat-error>-->
+              <input name="email"
+                     [(ngModel)]="form.email"
+                     #txtemail="ngModel"
+                     class="form-control"
+                     required email>
+              <p *ngIf="txtemail.touched && txtemail.errors?.required">Email không được để trống </p>
+              <!--  ẩn valid = touched và hiển thị thông báo nếu có lỗi-->
+              <p *ngIf="txtemail.touched && txtemail.errors">Email is not valid</p>
             </div>
-
             <div class="form-group last mb-4">
               <label>Password</label>
-              <input name="username" [(ngModel)]="form.password" #password class="form-control" required minlength="3"
-                     [type]="hide">
-              <!--              <mat-error *ngIf="password.hasError('required')">the name is required</mat-error>-->
-            </div>
+              <input type="password"
+                     name="password"
+                     id="password"
+                     placeholder="password"
+                     [(ngModel)]="form.password"
+                     #txtPassword="ngModel"
+                     class="form-control"
+                     required minlength="6" pattern="^[a-z0-9]*">
+              <p *ngIf="txtPassword.touched && txtPassword.errors">password >6</p>
 
-            <div class="form-group last mb-4">
-              <label>Re-Password</label>
-              <input name="username" [(ngModel)]="form.password" #password class="form-control" required minlength="3"
-                     [type]="hide">
-              <!--              <mat-error *ngIf="password.hasError('required')">the name is required</mat-error>-->
             </div>
+<!--            <div class="form-group last mb-4">-->
+<!--              <label>Re-Password</label>-->
+<!--              <input placeholder="confirmPassword"-->
+<!--                     type="password"-->
+<!--                     ngModel-->
+<!--                     class="form-control"-->
+<!--                     #txtConfirmPassword="ngModel"-->
+<!--                     name="confirmPassword"-->
+<!--                     minlength="6"-->
+<!--                     pattern="^[a-z0-9]*"-->
+<!--                     id="confirmPassword"-->
+<!--                     (change)="check_pass();">-->
 
+<!--              <p *ngIf="txtConfirmPassword.touched && txtConfirmPassword.errors">Re-Password >6</p>-->
+<!--            </div>-->
             <div class="d-flex mb-5 align-items-center">
               <label class="control control--checkbox mb-0"><span class="caption">Remember me</span>
                 <input type="checkbox" checked="checked"/>
                 <div class="control__indicator"></div>
               </label>
             </div>
-
             <input type="submit" value="SigUp" class="btn btn-block btn-primary">
-
             <span class="d-block text-left my-4 text-muted">&mdash; or SigUp with &mdash;</span>
-
             <div class="social-login">
               <a href="#" class="facebook">
                 <span class="icon-facebook mr-3"></span>
@@ -70,13 +91,9 @@
               </a>
             </div>
           </form>
-
-
         </div>
       </div>
-
     </div>
-
   </div>
 </div>
 

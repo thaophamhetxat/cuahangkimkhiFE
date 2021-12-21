@@ -4,12 +4,13 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {JwtResponse} from "../model/JwtResponse";
 import {SingInFrom} from "../model/SingInFrom";
+import {SingUpFrom} from "../model/SignUpFrom";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private API_SIGNUP = environment.API_LOCAL + 'signup';
+  private API_SIGNUP = environment.API_LOCAL + 'auth/signup';
   private API_SIGNIN = environment.API_LOCAL + 'auth/signin';
 
   constructor(private http: HttpClient) {
@@ -17,6 +18,10 @@ export class AuthService {
 
   signIn(signIn: SingInFrom): Observable<JwtResponse> {
     return this.http.post<JwtResponse>(this.API_SIGNIN, signIn);
+  }
+
+  signUp(signUp: SingUpFrom): Observable<JwtResponse> {
+    return this.http.post<JwtResponse>(this.API_SIGNUP, signUp);
   }
 
 }
