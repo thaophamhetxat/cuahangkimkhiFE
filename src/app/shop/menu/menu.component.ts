@@ -11,12 +11,17 @@ import {ProductService} from "../../service/product.service";
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
-  products: Product[] = [];
+
   categories: Category[] = [];
-  listProductPage: Product[] = [];
+
+  products: Product[] = [];
+  listProductNotPagination: Product[] = [];
+
   searchText: any;
+
+
   indexPagination: number = 1;
-  totalPagination!: number;
+  totalPagination: number | undefined;
 
   constructor(private activatedRoute: ActivatedRoute,
               private http: HttpClient,
@@ -25,34 +30,66 @@ export class MenuComponent implements OnInit {
   }
 
   ngOnInit(): void {
-this.getProduct();
-this.getCategory();
-    // this.productService.getAllProductPage(0).subscribe((data: Product[]) => {
-    //   this.products = data;
-    //   console.log(this.products);
-    // });
+    this.productService.getAllProduct(0).subscribe((data: Product[]) => {
+      console.log(data);
+      this.products = data;
 
-    // this.productService.getAllProduct().subscribe((data: Product[]) => {
-    //   this.listProductPage = data;
-    //   if ((this.listProductPage.length % 3) != 0) {
-    //     this.totalPagination = (Math.round(this.listProductPage.length / 3)) + 1;
-    //   }
-    // })
+    });
+
+    this.productService.getAllProductNotPagination().subscribe((data: Product[]) => {
+
+      this.listProductNotPagination = data;
+
+      if ((this.listProductNotPagination.length % 5) != 0) {
+        this.totalPagination = (Math.round(this.listProductNotPagination.length / 5)) + 1;
+      }
+    })
   }
 
-  getProduct() {
-    this.http.get<Product[]>('http://localhost:8080/kimkhi/sanphams/').subscribe((data) => {
+  indexPaginationChage(value: number) {
+    this.indexPagination = value;
+  }
+
+  firtPage() {
+    this.indexPagination = 1;
+    this.ngOnInit();
+  }
+
+  nextPage() {
+    this.indexPagination = this.indexPagination + 1;
+    if (this.indexPagination > this.totalPagination!) {
+      this.indexPagination = this.indexPagination - 1;
+    }
+    this.productService.getAllProduct((this.indexPagination * 5) - 5).subscribe((data: Product[]) => {
       this.products = data;
     })
   }
 
-  // getProductPage() {
-  //   this.http.get<Product[]>('http://localhost:8080/kimkhi/sanphams/page').subscribe((data) => {
-  //     this.listProductPage = data;
+  prviousPage() {
+    this.indexPagination = this.indexPagination - 1;
+    if (this.indexPagination == 0) {
+      this.indexPagination = 1;
+      this.ngOnInit();
+    } else {
+      this.productService.getAllProduct((this.indexPagination * 5) - 5).subscribe((data: Product[]) => {
+        this.products = data;
+      })
+    }
+  }
+
+  lastPage() {
+    this.indexPagination = this.listProductNotPagination.length / 5;
+    this.productService.getAllProduct((this.indexPagination * 5) - 5).subscribe((data: Product[]) => {
+      this.products = data;
+    })
+  }
+
+  // getProductPage(nextPage: any | undefined) {
+  //   this.productService.pageProduct(nextPage).subscribe(data => {
+  //     // @ts-ignore
+  //     this.products = data['content'];
   //
-  //     if ((this.listProductPage.length % 3) != 0) {
-  //       this.totalPagination = (Math.round(this.listProductPage.length / 3)) + 1;
-  //     }
+  //     this.totalPagination = data['totalPagination'];
   //   })
   // }
 
@@ -96,5 +133,6 @@ this.getCategory();
       this.categories = data;
     })
   }
+
 
 }

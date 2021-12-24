@@ -12,4 +12,8 @@ export class Product {
   dateAdd?: Date;  // ngày nhập
 
   category: Category | undefined;
+
+  constructor(nameProduct:string) {
+    this.nameProduct=nameProduct;
+  }
 }
